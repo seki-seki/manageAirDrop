@@ -5,8 +5,8 @@ contract AirDropFactory is Ownable{
     event NewContent(uint id,bytes32 name);
     event ModifiedContent(uint id, bytes32 name);
     struct AirDropContent {
-        bytes32 name;
         address contractAddress;
+        bytes32 name;
         bytes32 symbol;
         string imageUrl;
         string webSiteUrl;
@@ -23,8 +23,8 @@ contract AirDropFactory is Ownable{
     mapping (address =>uint) public ownerContentCount;
     
     function _createNewContent(
-    bytes32 _name,
     address _contractAddress,
+    bytes32 _name,
     bytes32 _symbol, 
     string _imageUrl,
     string _webSiteUrl,
@@ -33,7 +33,7 @@ contract AirDropFactory is Ownable{
     uint64 _startDateTimestamp,
     uint64 _expireDateTimestamp,
     uint64 _totalSupply,bool _enable) internal{
-	AirDropContent memory airDropContent = AirDropContent(_name, _contractAddress, _symbol, _imageUrl, _webSiteUrl,
+	AirDropContent memory airDropContent = AirDropContent(_contractAddress, _name, _symbol, _imageUrl, _webSiteUrl,
         _descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
         uint id = airDropContents.push(airDropContent) - 1;
         airDropContentToOwner[id] = msg.sender;
@@ -54,7 +54,7 @@ contract AirDropFactory is Ownable{
     uint64 _startDateTimestamp,
     uint64 _expireDateTimestamp,
     uint64 _totalSupply,bool _enable) internal{
-        airDropContents[_id] = AirDropContent(_name, airDropContents[_id].contractAddress, _symbol, _imageUrl, _webSiteUrl,
+        airDropContents[_id] = AirDropContent(airDropContents[_id].contractAddress, _name, _symbol, _imageUrl, _webSiteUrl,
         _descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
         emit ModifiedContent(_id,_name);
     }

@@ -17,8 +17,8 @@ contract AirDropEntry is AirDropFactory{
     }
     
     function createNewContent(
-    bytes32 _name,
     address _contractAddress, 
+    bytes32 _name,
     bytes32 _symbol, 
     string _imageUrl,
     string _webSiteUrl,
@@ -29,12 +29,12 @@ contract AirDropEntry is AirDropFactory{
     uint64 _totalSupply,
     bool _enable) external payable {
         require(msg.value == entryFee);
-        _createNewContent(_name, _contractAddress, _symbol, _imageUrl, _webSiteUrl,_descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
+        _createNewContent(_contractAddress, _name, _symbol, _imageUrl, _webSiteUrl,_descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
     }
     
     function createNewContentByOwner(
-    bytes32 _name,
     address _contractAddress, 
+    bytes32 _name,
     bytes32 _symbol, 
     string _imageUrl,
     string _webSiteUrl,
@@ -44,7 +44,7 @@ contract AirDropEntry is AirDropFactory{
     uint64 _expireDateTimestamp,
     uint64 _totalSupply,
     bool _enable) external onlyOwner {
-        _createNewContent(_name, _contractAddress, _symbol, _imageUrl, _webSiteUrl,_descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
+        _createNewContent(_contractAddress, _name, _symbol, _imageUrl, _webSiteUrl,_descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
     }
     
     /**
