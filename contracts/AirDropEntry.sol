@@ -6,6 +6,10 @@ contract AirDropEntry is AirDropFactory{
         require(msg.sender == owner || msg.sender ==airDropContentToOwner[_id]);
         _;
     }
+    modifier onlyOwnerOf(uint _id){
+        require(msg.sender ==airDropContentToOwner[_id]);
+        _;
+    }
     uint entryFee = 1 ether;
     
     function setEntryFee(uint _fee) external onlyOwner{
@@ -58,5 +62,8 @@ contract AirDropEntry is AirDropFactory{
     uint64 _expireDateTimestamp,
     uint64 _totalSupply,bool _enable) external onlyOwnerOrContentsOwner(_id){
         _modifyContent(_id, _name, _symbol, _imageUrl, _webSiteUrl,_descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
+    }
+    function modifyContractAddress(uint _id,address _contractAddress) external onlyOwner{
+        _modifyContractAddress(_id,_contractAddress);
     }
 }

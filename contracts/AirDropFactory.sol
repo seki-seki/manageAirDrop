@@ -59,6 +59,11 @@ contract AirDropFactory is Ownable{
         emit ModifiedContent(_id,_name);
     }
     
+    function _modifyContractAddress(uint _id,address _contractAddress) internal{
+        airDropContents[_id].contractAddress = _contractAddress;
+        emit ModifiedContent(_id, airDropContents[_id].name);
+    }
+
     function getExpireContentsIndexes() public view returns(uint[] indexes){
         uint[] memory expireIndexes;
         uint counter =0;
