@@ -1,6 +1,7 @@
 pragma solidity ^0.4.21;
 import "./AirDropEntry.sol";
-import "zeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+// TODO: It must use zeppelin-solidity's ERC721
+import "./ERC721.sol";
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract AirDropOwnership is AirDropEntry,ERC721{

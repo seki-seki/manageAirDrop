@@ -19,8 +19,8 @@ contract AirDropFactory is Ownable{
     }
     AirDropContent[] public airDropContents;
     
-    mapping (uint => address) airDropContentToOwner;
-    mapping (address =>uint) ownerContentCount;
+    mapping (uint => address) public airDropContentToOwner;
+    mapping (address =>uint) public ownerContentCount;
     
     function _createNewContent(
     bytes32 _name,
@@ -35,7 +35,7 @@ contract AirDropFactory is Ownable{
     uint64 _totalSupply,bool _enable) internal{
 	AirDropContent memory airDropContent = AirDropContent(_name, _contractAddress, _symbol, _imageUrl, _webSiteUrl,
         _descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
-        uint id = airDropContents.push(airDropContent);
+        uint id = airDropContents.push(airDropContent) - 1;
         airDropContentToOwner[id] = msg.sender;
         ownerContentCount[msg.sender]++;
         emit NewContent(id,_name);
@@ -65,23 +65,39 @@ contract AirDropFactory is Ownable{
     }
 
     function getExpireContentsIndexes() public view returns(uint[] indexes){
-        uint[] memory expireIndexes;
-        uint counter =0;
+        //TODO: Redundant logic because solidity cannot difine dynamic array in view function
+        uint countExpire = 0;
         for(uint i = 0;i < airDropContents.length;i++){
             if(airDropContents[i].enable && now < airDropContents[i].expireDateTimestamp){
-                expireIndexes[counter] = i;
-                counter++;
+                countExpire++;
+            }
+        }
+
+        uint[] memory expireIndexes = new uint[](countExpire);
+        uint count = 0;
+        for(uint j = 0;j < airDropContents.length;j++){
+            if(airDropContents[j].enable && now < airDropContents[j].expireDateTimestamp){
+                expireIndexes[count] = j;
+                count++;
             }
         }
         return expireIndexes;
-    }
-    
-    function getOwnContentsIndexes() public view returns(uint[] indexes){
-        uint[] memory ownIndexes;
-        uint counter =0;
+    }   
+
+    function getOwnContentsIndexes() public view returns(uint[] indexes){ 
+        //TODO: Redundant logic because solidity cannot difine dynamic array in view function
+        uint countOwn = 0;
         for(uint i = 0;i < airDropContents.length;i++){
             if(airDropContentToOwner[i] == msg.sender){
-                ownIndexes[counter] = i;
+                countOwn++;
+            }
+        }
+
+        uint[] memory ownIndexes = new uint[](countOwn);
+        uint counter =0;
+        for(uint j = 0;j < airDropContents.length;j++){
+            if(airDropContentToOwner[j] == msg.sender){
+                ownIndexes[counter] = j;
                 counter++;
             }
         }
