@@ -5,6 +5,7 @@ contract AirDropFactory is Ownable{
     event NewContent(uint id,bytes32 name);
     event ModifiedContent(uint id, bytes32 name);
     struct AirDropContent {
+        //Use byte32 to cut down storage content. string is too large.
         address contractAddress;
         bytes32 name;
         bytes32 symbol;
