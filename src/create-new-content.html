@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="import" href="header.html">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+            <h1 class="text-center">Create New AirDrop</h1>
+            <hr/>
+            <br/>
+        </div>
+    </div>
+
+    <div id="createForm" class="row">
+        <form>
+            name : <input type="text" name="name"><br>
+            address : <input type="text" name="address"><br>
+            symbol : <input type="text" name="symbol"><br>
+            image link : <input type="text" name="image"><br>
+            total supply : <input type="text" name="supply"><br>
+            decimal : <input type="text" name="decimal"><br>
+            <!-- TODO: Use Date Picker. Now Unix Time direct input. -->
+            start date : <input type="text" name="start" class="datepicker"><br>
+            expire date : <input type="text" name="expire" class="datepicker"><br>
+            web site : <input type="text" name="site"><br>
+            description : <input type="text" name="description"><br>
+            enable : <input type="checkbox" name="enable" checked><br>
+            <input type="button" name="submit" value="create" class = "create-btn">
+        </form>
+        <div id = "txStatus"/>
+    </div>
+    <a href="./index.html">Back To Menu</a>
+</div>
+</body>
+</html>
