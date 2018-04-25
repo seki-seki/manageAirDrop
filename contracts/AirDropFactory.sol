@@ -65,7 +65,7 @@ contract AirDropFactory is Ownable{
         emit ModifiedContent(_id, airDropContents[_id].name);
     }
 
-    function getExpireContentsIndexes() public view returns(uint[] indexes){
+    function getEffectiveContentsIndexes() public view returns(uint[] indexes){
         //TODO: Redundant logic because solidity cannot difine dynamic array in view function
         uint countExpire = 0;
         for(uint i = 0;i < airDropContents.length;i++){

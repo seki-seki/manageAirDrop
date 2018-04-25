@@ -34,7 +34,7 @@ App = {
         App.contracts.airDrop.deployed().then(function (instance) {
             let airDropInstance = instance;
             //List Expire Contents
-            airDropInstance.getExpireContentsIndexes.call().then(function (indexes) {
+            airDropInstance.getEffectiveContentsIndexes.call().then(function (indexes) {
                     indexes.forEach(function (i) {
                         airDropInstance.airDropContents(i).then(function (airDropContent) {
                             //TODO: I want recieve airDropContent as map instead of array to access using domain name
