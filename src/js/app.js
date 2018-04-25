@@ -87,21 +87,22 @@ App = {
             // Modify Own Contents
             let modifyOwnContentsRow = $('#modifyOwnContentsRow');
             index = getParameterByName("index");
-            airDropInstance.airDropContents(index).then(function (airDropContent) {
-                //TODO: I want recieve airDropContent as map instead of array to access using domain name
-                let name = web3.toUtf8(airDropContent[1]);
-                let address = airDropContent[0];
-                let symbol = web3.toUtf8(airDropContent[2]);
-                let image = airDropContent[3];
-                let site = airDropContent[4];
-                let description = airDropContent[5];
-                let decimal = airDropContent[6];
-                let totalSupply = airDropContent[9];
-                let startDate = airDropContent[7];
-                let expireDate = airDropContent[8];
-                let enable = airDropContent[10];
-                modifyOwnContentsRow.append(
-                    `<div class = "airDrop">
+            if(index) {
+                airDropInstance.airDropContents(index).then(function (airDropContent) {
+                    //TODO: I want recieve airDropContent as map instead of array to access using domain name
+                    let name = web3.toUtf8(airDropContent[1]);
+                    let address = airDropContent[0];
+                    let symbol = web3.toUtf8(airDropContent[2]);
+                    let image = airDropContent[3];
+                    let site = airDropContent[4];
+                    let description = airDropContent[5];
+                    let decimal = airDropContent[6];
+                    let totalSupply = airDropContent[9];
+                    let startDate = airDropContent[7];
+                    let expireDate = airDropContent[8];
+                    let enable = airDropContent[10];
+                    modifyOwnContentsRow.append(
+                        `<div class = "airDrop">
                         <div id="modifyForm" class="row">
                             <form>
                                 name : <input type="text" name="name" value="${name}"><br>
@@ -115,19 +116,18 @@ App = {
                                 expire date : <input type="text" name="expire" class="datepicker" value="${expireDate}"><br>
                                 web site : <input type="text" name="site" value="${site}"><br>
                                 description : <input type="text" name="description" value="${description}"><br>
-                                enable : <input type="checkbox" name="enable" ${enable? "checked":""}><br>
+                                enable : <input type="checkbox" name="enable" ${enable ? "checked" : ""}><br>
                                 <input type="button" name="submit" value="modify" class = "modify-btn">
                             </form>
                         <div id = "txStatus"/>
                         </div>
                     </div>`
-                )
-            });
+                    )
+                });
+            }
 
             // Create New Content
             App.bindEvents();
-        }).catch(function (err) {
-            console.log(err.message);
         })
     },
     bindEvents: function () {
