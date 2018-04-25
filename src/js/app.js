@@ -37,13 +37,13 @@ App = {
             airDropInstance.getExpireContentsIndexes.call().then(function (indexes) {
                     indexes.forEach(function (i) {
                         airDropInstance.airDropContents(i).then(function (airDropContent) {
-                            //TODO: I want recieve airDropContent    as map instead of array to access using domain name
+                            //TODO: I want recieve airDropContent as map instead of array to access using domain name
                             airDropsRow.append(
                                 `<div class = "airDrop">
                                      <ul>
-                                        <li>Name: ${web3.toAscii(airDropContent[1])}</li>
+                                        <li>Name: ${web3.toUtf8(airDropContent[1])}</li>
                                         <li>Adress: ${airDropContent[0]}</li>
-                                        <li>Symbol: ${web3.toAscii(airDropContent[2])}</li>
+                                        <li>Symbol: ${web3.toUtf8(airDropContent[2])}</li>
                                         <li>Image: ${airDropContent[3]}</li>
                                         <li>WebSiteUrl: ${airDropContent[4]}</li>
                                         <li>Descriptions: ${airDropContent[5]}</li>
@@ -63,13 +63,13 @@ App = {
             airDropInstance.getOwnContentsIndexes.call().then(function (indexes) {
                     indexes.forEach(function (i) {
                         airDropInstance.airDropContents(i).then(function (airDropContent) {
-                            //TODO: I want recieve airDropContent    as map instead of array to access using domain name
+                            //TODO: I want recieve airDropContent as map instead of array to access using domain name
                             ownContentsRow.append(
                                 `<div class = "airDrop">
                                      <ul>
-                                        <li>Name: ${web3.toAscii(airDropContent[1])}</li>
+                                        <li>Name: ${web3.toUtf8(airDropContent[1])}</li>
                                         <li>Adress: ${airDropContent[0]}</li>
-                                        <li>Symbol: ${web3.toAscii(airDropContent[2])}</li>
+                                        <li>Symbol: ${web3.toUtf8(airDropContent[2])}</li>
                                         <li>Image: ${airDropContent[3]}</li>
                                         <li>WebSiteUrl: ${airDropContent[4]}</li>
                                         <li>Descriptions: ${airDropContent[5]}</li>
@@ -93,9 +93,9 @@ App = {
         $(document).on('click', '.create-btn', App.createNewContent);
     },
     createNewContent: function () {
-        let name = $("#createForm > form >input[name='name']")[0].value;
+        let name = web3.fromUtf8($("#createForm > form >input[name='name']")[0].value);
         let address = $("#createForm > form >input[name='address']")[0].value;
-        let symbol = web3.fromAscii($("#createForm > form >input[name='symbol']")[0].value);
+        let symbol = web3.fromUtf8($("#createForm > form >input[name='symbol']")[0].value);
         let image = $("#createForm > form >input[name='image']")[0].value;
         let supply = $("#createForm > form >input[name='supply']")[0].value;
         let decimal = $("#createForm > form >input[name='decimal']")[0].value;

@@ -60,7 +60,8 @@ contract AirDropEntry is AirDropFactory{
     uint8 _decimal, 
     uint64 _startDateTimestamp,
     uint64 _expireDateTimestamp,
-    uint64 _totalSupply,bool _enable) external onlyOwnerOrContentsOwner(_id){
+    uint64 _totalSupply,
+    bool _enable) external onlyOwnerOrContentsOwner(_id){
         _modifyContent(_id, _name, _symbol, _imageUrl, _webSiteUrl,_descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
     }
     function modifyContractAddress(uint _id,address _contractAddress) external onlyOwner{
