@@ -11,6 +11,10 @@ Installed followings.
 - MetaMask
 
 # Getting Started(dev mode)
+## npm install 
+```
+npm install
+```
 ## start rpc on dev mode
 ```
 truffle develop
