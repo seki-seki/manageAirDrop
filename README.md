@@ -1,6 +1,6 @@
 # What is this repository?
 It can manage AirDrop by SmartContract.
-AirDrop owner can advertise their AirDrop through pay eth for SmartContract owner.
+AirDrop owner can advertise their AirDrop through pay ether for SmartContract owner.
 No examination, No procedure.
 
 # Required Emvironment
