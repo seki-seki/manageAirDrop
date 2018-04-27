@@ -37,7 +37,7 @@ App = {
             airDropInstance.getEffectiveContentsIndexes.call().then(function (indexes) {
                     indexes.forEach(function (i) {
                         airDropInstance.airDropContents(i).then(function (airDropContent) {
-                            //TODO: I want recieve airDropContent as map instead of array to access using domain name
+                            //TODO: I want receive airDropContent as map instead of array to access using domain name
                             airDropsRow.append(
                                 `<div class = "airDrop">
                                      <ul>
@@ -63,7 +63,7 @@ App = {
             airDropInstance.getOwnContentsIndexes.call().then(function (indexes) {
                     indexes.forEach(function (i) {
                         airDropInstance.airDropContents(i).then(function (airDropContent) {
-                            //TODO: I want recieve airDropContent as map instead of array to access using domain name
+                            //TODO: I want receive airDropContent as map instead of array to access using domain name
                             ownContentsRow.append(
                                 `<div class = "airDrop">
                                      <ul>
@@ -78,7 +78,7 @@ App = {
                                         <li>StartDate: ${new Date(airDropContent[7] * 1000)}</li>
                                         <li>ExpireDate: ${new Date(airDropContent[8] * 1000)}</li>
                                     </ul>
-                                    <a href="./modify-own-contents.html?index=${i}">modify</a>
+                                    <a href="./modify-own-contents.html?index=${i}"><div class="ui button create-btn" name="submit">Modify</div></a>
                                 </div>`)
                         })
                     })
@@ -87,7 +87,7 @@ App = {
             // Modify Own Contents
             let modifyOwnContentsRow = $('#modifyOwnContentsRow');
             index = getParameterByName("index");
-            if(index) {
+            if (index) {
                 airDropInstance.airDropContents(index).then(function (airDropContent) {
                     //TODO: I want recieve airDropContent as map instead of array to access using domain name
                     let name = web3.toUtf8(airDropContent[1]);
@@ -135,19 +135,25 @@ App = {
         $(document).on('click', '.modify-btn', App.modifyContent);
     },
     createNewContent: function () {
-        let name = web3.fromUtf8($("#createForm > form >input[name='name']")[0].value);
-        let address = $("#createForm > form >input[name='address']")[0].value;
-        let symbol = web3.fromUtf8($("#createForm > form >input[name='symbol']")[0].value);
-        let image = $("#createForm > form >input[name='image']")[0].value;
-        let supply = $("#createForm > form >input[name='supply']")[0].value;
-        let decimal = $("#createForm > form >input[name='decimal']")[0].value;
-        let start = $("#createForm > form >input[name='start']")[0].value;
-        let expire = $("#createForm > form >input[name='expire']")[0].value;
-        let site = $("#createForm > form >input[name='site']")[0].value;
-        let description = $("#createForm > form >input[name='description']")[0].value;
-        let enable = $("#createForm > form >input[name='enable']")[0].checked;
+        let name = web3.fromUtf8($("#createForm input[name='name']")[0].value);
+        let address = $("#createForm input[name='address']")[0].value;
+        let symbol = web3.fromUtf8($("#createForm input[name='symbol']")[0].value);
+        let image = $("#createForm input[name='image']")[0].value;
+        let supply = $("#createForm input[name='supply']")[0].value;
+        let decimal = $("#createForm input[name='decimal']")[0].value;
+        let start = $("#createForm input[name='start']")[0].value;
+        let expire = $("#createForm input[name='expire']")[0].value;
+        let site = $("#createForm input[name='site']")[0].value;
+        let description = $("#createForm input[name='description']")[0].value;
+        let enable = $("#createForm input[name='enable']")[0].checked;
         //TODO: validate form input value here
-        $("#txStatus").text("Create your own AirDrop content...");
+        $("#txStatus").empty();
+        $("#txStatus").append(`
+                    <div class="ui icon message">
+                      <i class="notched circle loading icon"></i>
+                      <div class="content">
+                          Wait for transaction end
+                    </div>`);
         App.contracts.airDrop.deployed().then(function (instance) {
             let airDropInstance = instance;
             airDropInstance.createNewContent(address, name, symbol, image, site, description, decimal, start, expire, supply, enable, {
@@ -155,37 +161,49 @@ App = {
                 value: web3.toWei("1", "ether")
             })
                 .then(function (receipt) {
-                    $("#txStatus").text("Success");
+                    $("#txStatus").empty();
+                    $("#txStatus").append(`
+                    <div class="ui positive message"> success </div>
+                    `);
                 })
                 .catch(function (error) {
-                    $("#txStatus").text(error);
+                    $("#txStatus").empty();
+                    $("#txStatus").append(`
+                    <div class="ui negative message">${error} </div>
+                    `);
                 });
         });
     },
 
     modifyContent: function () {
-        let name = web3.fromUtf8($("#modifyForm > form >input[name='name']")[0].value);
-        let symbol = web3.fromUtf8($("#modifyForm > form >input[name='symbol']")[0].value);
-        let image = $("#modifyForm > form >input[name='image']")[0].value;
-        let supply = $("#modifyForm > form >input[name='supply']")[0].value;
-        let decimal = $("#modifyForm > form >input[name='decimal']")[0].value;
-        let start = $("#modifyForm > form >input[name='start']")[0].value;
-        let expire = $("#modifyForm > form >input[name='expire']")[0].value;
-        let site = $("#modifyForm > form >input[name='site']")[0].value;
-        let description = $("#modifyForm > form >input[name='description']")[0].value;
-        let enable = $("#modifyForm > form >input[name='enable']")[0].checked;
+        let name = web3.fromUtf8($("#modifyForm input[name='name']")[0].value);
+        let symbol = web3.fromUtf8($("#modifyForm input[name='symbol']")[0].value);
+        let image = $("#modifyForm input[name='image']")[0].value;
+        let supply = $("#modifyForm input[name='supply']")[0].value;
+        let decimal = $("#modifyForm input[name='decimal']")[0].value;
+        let start = $("#modifyForm input[name='start']")[0].value;
+        let expire = $("#modifyForm input[name='expire']")[0].value;
+        let site = $("#modifyForm input[name='site']")[0].value;
+        let description = $("#modifyForm input[name='description']")[0].value;
+        let enable = $("#modifyForm input[name='enable']")[0].checked;
         //TODO: validate form input value here
-        $("#txStatus").text("modify your own AirDrop content...");
+        $("#txStatus").text("Modify your own AirDrop content...");
         App.contracts.airDrop.deployed().then(function (instance) {
             let airDropInstance = instance;
             airDropInstance.modifyContent(index, name, symbol, image, site, description, decimal, start, expire, supply, enable, {
                 from: App.userAccount
             })
                 .then(function (receipt) {
-                    $("#txStatus").text("Success");
+                    $("#txStatus").empty();
+                    $("#txStatus").append(`
+                    <div class="ui positive message"> success </div>
+                    `);
                 })
                 .catch(function (error) {
-                    $("#txStatus").text(error);
+                    $("#txStatus").empty();
+                    $("#txStatus").append(`
+                    <div class="ui negative message"> ${error} </div>
+                    `);
                 });
         });
     }

@@ -4,34 +4,81 @@
     <link rel="import" href="header.html">
 </head>
 <body>
-<div class="container">
+<h1 class="ui center aligned blue header">Create New AirDrop</h1>
+<div class="ui grid">
     <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-            <h1 class="text-center">Create New AirDrop</h1>
-            <hr/>
-            <br/>
+        <!-- TODO: Cut out menu -->
+        <div class="four wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="item" href="./index.html">Top page</a>
+                <a class="item" href="./list-expire-contents.html">
+                    List Expire AirDrops
+                </a>
+                <a class="item" href="./list-own-contents.html">
+                    List Own Contents
+                </a>
+                <a class="active item" href="./create-new-content.html">
+                    Create New Contents
+                </a>
+            </div>
+        </div>
+
+            <div class="twelve wide column">
+                <div id="createForm">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>Name</label>
+                            <input type="text" name="name">
+                        </div>
+                        <div class="field">
+                            <label>Address</label>
+                            <input type="text" name="address">
+                        </div>
+                        <div class="field">
+                            <label>Symbol</label>
+                            <input type="text" name="symbol">
+                        </div>
+                        <div class="field">
+                            <label>Image Link</label>
+                            <input type="text" name="image">
+                        </div>
+                        <div class="field">
+                            <label>Total Supply</label>
+                            <input type="text" name="supply">
+                        </div>
+                        <div class="field">
+                            <label>Decimal</label>
+                            <input type="text" name="decimal">
+                        </div>
+                        <!-- TODO: Use Date Picker,and convert to Unix Time. Now Unix Time direct input. -->
+                        <div class="field">
+                            <label>Start Date</label>
+                            <input type="text" name="start" class="datepicker">
+                        </div>
+                        <div class="field">
+                            <label>Expire Date</label>
+                            <input type="text" name="expire" class="datepicker">
+                        </div>
+                        <div class="field">
+                            <label>Web Site</label>
+                            <input type="text" name="site">
+                        </div>
+                        <div class="field">
+                            <label>Description</label>
+                            <input type="text" name="description">
+                        </div>
+                        <div class="field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" name="enable" checked>
+                                <label>Enable</label>
+                            </div>
+                        </div>
+                        <div class="ui button create-btn" name="submit">Submit</div>
+                    </form>
+                    <div id="txStatus"/>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div id="createForm" class="row">
-        <form>
-            name : <input type="text" name="name"><br>
-            address : <input type="text" name="address"><br>
-            symbol : <input type="text" name="symbol"><br>
-            image link : <input type="text" name="image"><br>
-            total supply : <input type="text" name="supply"><br>
-            decimal : <input type="text" name="decimal"><br>
-            <!-- TODO: Use Date Picker,and convert to Unix Time. Now Unix Time direct input. -->
-            start date : <input type="text" name="start" class="datepicker"><br>
-            expire date : <input type="text" name="expire" class="datepicker"><br>
-            web site : <input type="text" name="site"><br>
-            description : <input type="text" name="description"><br>
-            enable : <input type="checkbox" name="enable" checked><br>
-            <input type="button" name="submit" value="create" class = "create-btn">
-        </form>
-        <div id = "txStatus"/>
-    </div>
-    <a href="./index.html">Back To Menu</a>
-</div>
 </body>
 </html>

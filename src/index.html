@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <link rel="import" href="header.html">
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Menu</h1>
-          <hr/>
-          <br/>
+</head>
+<body>
+<h1 class="ui center aligned blue header">Manage AirDrop</h1>
+<div class="ui grid">
+    <div class="row">
+        <!-- TODO: Cut out menu -->
+        <div class="four wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="active item" href="./index.html">Top page</a>
+                <a class="item" href="./list-expire-contents.html">
+                    List Expire AirDrops
+                </a>
+                <a class="item" href="./list-own-contents.html">
+                    List Own Contents
+                </a>
+                <a class="item" href="./create-new-content.html">
+                    Create New Contents
+                </a>
+            </div>
         </div>
-      </div>
-
-      <ul>
-        <li><a href = "./list-expire-contents.html">List Expire AirDrops</a></li>
-        <li><a href = "./list-own-contents.html">List Own Contents</a></li>
-        <li><a href = "./create-new-content.html">Create New Content</a></li>
-      </ul>
+        <div class="twelve wide column">
+            <h2 class="ui black header"> Descriptions</h2>
+            This page can manage AirDrop by SmartContract. <br>
+            AirDrop owner can advertise their AirDrop through pay ether for SmartContract owner.<br>
+            No examination, No procedure.
+        </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

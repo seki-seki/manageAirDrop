@@ -4,19 +4,30 @@
     <link rel="import" href="header.html">
 </head>
 <body>
-<div class="container">
+<h1 class="ui fixed center aligned blue header">Current AirDrop List</h1>
+<div class="ui grid">
     <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-            <h1 class="text-center">Current AirDrop List</h1>
-            <hr/>
-            <br/>
+        <!-- TODO: Cut out menu -->
+        <div class="four wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="item" href="./index.html">Top page</a>
+                <a class="active item" href="./list-expire-contents.html">
+                    List Expire AirDrops
+                </a>
+                <a class="item" href="./list-own-contents.html">
+                    List Own Contents
+                </a>
+                <a class="item" href="./create-new-content.html">
+                    Create New Contents
+                </a>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <div id="airDropsRow" class="row">
+                <!-- AirDropS LOAD HERE -->
+            </div>
         </div>
     </div>
-
-    <div id="airDropsRow" class="row">
-        <!-- AirDropS LOAD HERE -->
-    </div>
-    <a href="./index.html">Back To Menu</a>
 </div>
 </body>
 </html>

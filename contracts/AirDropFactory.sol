@@ -1,7 +1,10 @@
 pragma solidity ^0.4.21;
+
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract AirDropFactory is Ownable{
+    using SafeMath for uint256;
     event NewContent(uint id,bytes32 name);
     event ModifiedContent(uint id, bytes32 name);
     struct AirDropContent {
@@ -36,7 +39,7 @@ contract AirDropFactory is Ownable{
     uint64 _totalSupply,bool _enable) internal{
 	AirDropContent memory airDropContent = AirDropContent(_contractAddress, _name, _symbol, _imageUrl, _webSiteUrl,
         _descriptions, _decimal, _startDateTimestamp, _expireDateTimestamp, _totalSupply, _enable);
-        uint id = airDropContents.push(airDropContent) - 1;
+        uint id = airDropContents.push(airDropContent).sub(1);
         airDropContentToOwner[id] = msg.sender;
         ownerContentCount[msg.sender]++;
         emit NewContent(id,_name);
