@@ -50,14 +50,21 @@
                             <label>Decimal</label>
                             <input type="text" name="decimal">
                         </div>
-                        <!-- TODO: Use Date Picker,and convert to Unix Time. Now Unix Time direct input. -->
                         <div class="field">
                             <label>Start Date</label>
-                            <input type="text" name="start" class="datepicker">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="datetime-local" name="start">
+                            </div>
                         </div>
                         <div class="field">
                             <label>Expire Date</label>
-                            <input type="text" name="expire" class="datepicker">
+                            <div class="ui calendar">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="datetime-local" name="expire">
+                                </div>
+                            </div>
                         </div>
                         <div class="field">
                             <label>Web Site</label>

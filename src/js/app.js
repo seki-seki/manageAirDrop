@@ -98,31 +98,75 @@ App = {
                     let description = airDropContent[5];
                     let decimal = airDropContent[6];
                     let totalSupply = airDropContent[9];
-                    let startDate = airDropContent[7];
-                    let expireDate = airDropContent[8];
+                    let startDate = new Date(airDropContent[7] * 1000);
+                    let formattedStartDate = moment(startDate).format("YYYY-MM-DDTHH:mm");
+                    let expireDate = new Date(airDropContent[8] * 1000);
+                    let formattedExpireDate = moment(expireDate).format("YYYY-MM-DDTHH:mm");
                     let enable = airDropContent[10];
                     modifyOwnContentsRow.append(
                         `<div class = "airDrop">
-                        <div id="modifyForm" class="row">
-                            <form>
-                                name : <input type="text" name="name" value="${name}"><br>
-                                address : ${address}  <br>
-                                symbol : <input type="text" name="symbol" value="${symbol}"><br>
-                                image link : <input type="text" name="image" value="${image}"><br>
-                                total supply : <input type="text" name="supply" value="${totalSupply}"><br>
-                                decimal : <input type="text" name="decimal" value="${decimal}"><br>
-                                <!-- TODO: Use Date Picker,and convert to Unix Time. Now Unix Time direct input. -->
-                                start date : <input type="text" name="start" class="datepicker" value="${startDate}"><br>
-                                expire date : <input type="text" name="expire" class="datepicker" value="${expireDate}"><br>
-                                web site : <input type="text" name="site" value="${site}"><br>
-                                description : <input type="text" name="description" value="${description}"><br>
-                                enable : <input type="checkbox" name="enable" ${enable ? "checked" : ""}><br>
-                                <input type="button" name="submit" value="modify" class = "modify-btn">
+                        <div id="modifyForm">
+                            <form class="ui form">
+                                <div class="field">
+                                    <label>Name</label>
+                                    <input type="text" name="name" value="${name}">
+                                </div>
+                                <div class="field">
+                                    <label>Address</label>
+                                    <label>${address}</label>
+                                </div>
+                                <div class="field">
+                                    <label>Symbol</label>
+                                    <input type="text" name="symbol" value="${symbol}">
+                                </div>
+                                <div class="field">
+                                    <label>Image Link</label>
+                                    <input type="text" name="image" value="${image}">
+                                </div>
+                                <div class="field">
+                                    <label>Total Supply</label>
+                                    <input type="text" name="supply" value="${totalSupply}">
+                                </div>
+                                <div class="field">
+                                    <label>Decimal</label>
+                                    <input type="text" name="decimal" value="${decimal}">
+                                </div>
+                                <div class="field">
+                                    <label>Start Date</label>
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="datetime-local" name="start" value="${formattedStartDate}">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Expire Date</label>
+                                    <div class="ui calendar">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="datetime-local" name="expire" value="${formattedExpireDate}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Web Site</label>
+                                    <input type="text" name="site" value="${site}">
+                                </div>
+                                <div class="field">
+                                    <label>Description</label>
+                                    <input type="text" name="description" value="${description}">
+                                </div>
+                                <div class="field">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" name="enable" ${enable ? "checked" : ""}>
+                                        <label>Enable</label>
+                                    </div>
+                                </div>
+                                <div class="ui button modify-btn" name="submit">Submit</div>
                             </form>
                         <div id = "txStatus"/>
                         </div>
                     </div>`
-                    )
+                    );
                 });
             }
 
@@ -141,8 +185,10 @@ App = {
         let image = $("#createForm input[name='image']")[0].value;
         let supply = $("#createForm input[name='supply']")[0].value;
         let decimal = $("#createForm input[name='decimal']")[0].value;
-        let start = $("#createForm input[name='start']")[0].value;
-        let expire = $("#createForm input[name='expire']")[0].value;
+        let startDateTIme = $("#createForm input[name='start']")[0].value;
+        let start = new Date(startDateTIme).getTime() / 1000;
+        let expireDateTime = $("#createForm input[name='expire']")[0].value;
+        let expire = new Date(expireDateTime).getTime() / 1000;
         let site = $("#createForm input[name='site']")[0].value;
         let description = $("#createForm input[name='description']")[0].value;
         let enable = $("#createForm input[name='enable']")[0].checked;
@@ -181,13 +227,21 @@ App = {
         let image = $("#modifyForm input[name='image']")[0].value;
         let supply = $("#modifyForm input[name='supply']")[0].value;
         let decimal = $("#modifyForm input[name='decimal']")[0].value;
-        let start = $("#modifyForm input[name='start']")[0].value;
-        let expire = $("#modifyForm input[name='expire']")[0].value;
+        let startDateTIme = $("#modifyForm input[name='start']")[0].value;
+        let start = new Date(startDateTIme).getTime() / 1000;
+        let expireDateTime = $("#modifyForm input[name='expire']")[0].value;
+        let expire = new Date(expireDateTime).getTime() / 1000;
         let site = $("#modifyForm input[name='site']")[0].value;
         let description = $("#modifyForm input[name='description']")[0].value;
         let enable = $("#modifyForm input[name='enable']")[0].checked;
         //TODO: validate form input value here
-        $("#txStatus").text("Modify your own AirDrop content...");
+        $("#txStatus").empty();
+        $("#txStatus").append(`
+                    <div class="ui icon message">
+                      <i class="notched circle loading icon"></i>
+                      <div class="content">
+                          Wait for transaction end
+                    </div>`);
         App.contracts.airDrop.deployed().then(function (instance) {
             let airDropInstance = instance;
             airDropInstance.modifyContent(index, name, symbol, image, site, description, decimal, start, expire, supply, enable, {
